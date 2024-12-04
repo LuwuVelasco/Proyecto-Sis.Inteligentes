@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Navbar */
+.navbar-light .navbar-brand {
+    color: #fff !important;
+    font-size: 25px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-item .nav-link {
+    color: #fff !important;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-item:hover .nav-link:hover {
+    color: #01393b !important;
+    transition: color 0.3s ease;
+}
+
+/* Navbar */
+.navbar-light .navbar-brand:hover {
+    color: #01393b !important;
+    transition: color 0.3s ease;
+    font-size: 25px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.navbar-toggler {
+    background: #fff;
+    outline: none !important;
+    font-size: 18px;
+    line-height: 0.3;
+    padding: 1px 5px;
+}
+
+.navbar.scrolled {
+    background-color: rgba(3, 47, 58, 0.8); /* Fondo semi-transparente */
+    transition: background-color 0.3s ease;
+}
+
+body {
+    background-color: #099992;
+    color: #eaeaea;
+}
+
+h1 {
+    color: #01393b;
+    font-weight: bold;
+    margin-top: 80px;
+    text-align: center;
+}
+
+.image-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 3rem;
+}
+
+.image-section img {
+    max-width: 90%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.legend {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 1.1rem;
+    background-color: rgba(3, 47, 58, 0.7);
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 80%;
+}
+
+.legend p {
+    margin: 0.5rem 0;
+}
+
+.low {
+    color: #440154;
+    font-weight: bold;
+}
+
+.medium {
+    color: #fde725;
+    font-weight: bold;
+}
+
+.high {
+    color: #21918c;
+    font-weight: bold;
+}
+
+/* Footer Section */
+.copyright {
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+}
+
+/* Estilo para la barra de scroll */
+::-webkit-scrollbar {
+    width: 10px; /* Ancho de la barra */
+    height: 10px; /* Alto de la barra para desplazamientos horizontales */
+}
+
+/* Estilo para el track (fondo del scroll) */
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1); /* Fondo translúcido */
+    border-radius: 10px;
+}
+
+/* Estilo para el pulgar (thumb) */
+::-webkit-scrollbar-thumb {
+    background: #064148; /* Color del pulgar */
+    border-radius: 10px; /* Bordes redondeados */
+    border: 2px solid #099992; /* Borde alrededor del pulgar */
+}
+
+/* Hover sobre el pulgar */
+::-webkit-scrollbar-thumb:hover {
+    background: #01393b; /* Cambia de color al pasar el mouse */
+}

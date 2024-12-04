@@ -1,0 +1,237 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Body Styling */
+body {
+    background-color: #099992;
+    color: white;
+}
+
+/* Navbar */
+.navbar-light .navbar-brand {
+    color: #fff !important;
+    font-size: 25px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-item .nav-link {
+    color: #fff !important;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-item:hover .nav-link:hover {
+    color: #01393b !important;
+    transition: color 0.3s ease;
+}
+
+/* Navbar */
+.navbar-light .navbar-brand:hover {
+    color: #01393b !important;
+    transition: color 0.3s ease;
+    font-size: 25px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.navbar-toggler {
+    background: #fff;
+    outline: none !important;
+    font-size: 18px;
+    line-height: 0.3;
+    padding: 1px 5px;
+}
+
+.navbar.scrolled {
+    background-color: rgba(3, 47, 58, 0.8); /* Fondo semi-transparente */
+    transition: background-color 0.3s ease;
+}
+
+/* Main Section */
+.main {
+    padding: 100px 0 50px;
+    background-color: #099992;
+    min-height: 100vh;
+}
+
+/* Card Container */
+.container__cards {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* Card Styles */
+.card {
+    width: 300px;
+    margin: 10px;
+    margin-top: 0px;
+    transition: all 300ms;
+    border-top: none !important; /* Ocultar el borde superior */
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+    overflow: hidden; /* Prevenir que el contenido sobresalga */
+    background-color: #064148 !important; /* Fondo translúcido */
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    width: 320px;
+}
+
+/* Card Cover */
+.card .cover {
+    position: sticky;
+    height: 200px;
+    overflow: hidden;
+    background-color: #099992;
+}
+
+.card .cover img{
+    width: 100%;
+    margin: auto;
+    position: relative;
+    top: -50px;
+    z-index: 1;
+    filter: drop-shadow(5px 5px 4px rgba(0,0,0,0.5));
+    transition: all 400ms;
+}
+
+.card:hover .cover img{
+    top: -70px;
+    filter: none;
+}
+
+.card .img__back{
+    width: 100%;
+    height: 180px;
+    position: absolute;
+    bottom: -40px;
+    left: 0;
+    background-size: cover;
+    border-radius: 20px;
+    transition: all 300ms;
+}
+
+.card:nth-of-type(1) img{
+    scale: 0.8 0.8;
+}
+
+.card:nth-of-type(3) img{
+    top: -60px;
+}
+
+.card:nth-of-type(1) .img__back{
+    background-image: url(bg1.jpg);
+}
+
+.card:nth-of-type(2) .img__back{
+    background-image: url(bg3.jpg);
+}
+
+.card:nth-of-type(3) .img__back{
+    background-image: url(bg1.jpg);
+}
+
+.card:nth-of-type(4) .img__back{
+    background-image: url(bg1.jpg);
+}
+
+.card:nth-of-type(5) .img__back{
+    background-image: url(bg3.jpg);
+}
+
+.card:hover .img__back{
+    bottom: -15px;
+}
+
+.card:hover .cover img {
+    transform: scale(1.1);
+}
+
+/* Card Description */
+.card .description {
+    padding: 20px;
+    text-align: center;
+}
+
+.card .description h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.card .description ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.card .description ul li a {
+    font-size: 20px;
+    color: #ffffff;
+    transition: color 0.3s ease;
+}
+
+.card .description ul li a.google:hover {
+    color: #dd4b39;
+}
+
+.card .description ul li a.instagram:hover {
+    color: #c32aa3;
+}
+
+.card .description ul li a.github:hover {
+    color: #070846;
+}
+
+/* Footer Section */
+.copyright {
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+}
+
+/* Estilo para la barra de scroll */
+::-webkit-scrollbar {
+    width: 10px; /* Ancho de la barra */
+    height: 10px; /* Alto de la barra para desplazamientos horizontales */
+}
+
+/* Estilo para el track (fondo del scroll) */
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1); /* Fondo translúcido */
+    border-radius: 10px;
+}
+
+/* Estilo para el pulgar (thumb) */
+::-webkit-scrollbar-thumb {
+    background: #064148; /* Color del pulgar */
+    border-radius: 10px; /* Bordes redondeados */
+    border: 2px solid #099992; /* Borde alrededor del pulgar */
+}
+
+/* Hover sobre el pulgar */
+::-webkit-scrollbar-thumb:hover {
+    background: #01393b; /* Cambia de color al pasar el mouse */
+}
