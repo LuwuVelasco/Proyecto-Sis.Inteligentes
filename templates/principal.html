@@ -304,15 +304,6 @@
                         <a class="nav-link" href="http://127.0.0.1:5000/">JR48</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="http://127.0.0.1:5500/templates/cluster.html">Clustering</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="http://127.0.0.1:5500/templates/redneuronal.html">Red Neuronal</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="http://127.0.0.1:5500/templates/Contacto/indexContacto.html">Contacto</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="#">Documentación</a>
                     </li>
                 </ul>
@@ -350,15 +341,6 @@
         </form>
         <div id="map"></div>
         <div id="result"></div>
-        <div class="tree-visualization mt-5">
-            <h2 class="text-center text-light">Visualización del Árbol de Decisión</h2>
-            <img src="/static/arbol.png" alt="Árbol de Decisión" class="img-fluid rounded shadow mt-3 zoom"
-                onclick="openModal(this.src)">
-        </div>
-        <div id="imageModal" class="modal">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <img class="modal-content" id="modalImage">
-        </div>
     </div>
 
     <div class="copyright">
@@ -439,136 +421,6 @@
         let isDragging = false; // Rastrea si el usuario está arrastrando
         let startX, startY; // Posición inicial del clic
 
-        function openModal(imageSrc) {
-            const modal = document.getElementById('imageModal');
-            const modalImage = document.getElementById('modalImage');
-
-            // Muestra el modal
-            modal.style.display = "block";
-            modalImage.src = imageSrc;
-
-            // Esperar a que la imagen se cargue completamente antes de obtener sus dimensiones
-            modalImage.onload = function () {
-                // Obtener las dimensiones de la imagen y del modal
-                const imageWidth = modalImage.naturalWidth;
-                const imageHeight = modalImage.naturalHeight;
-                const modalWidth = modal.offsetWidth;
-                const modalHeight = modal.offsetHeight;
-
-                // Calcular las posiciones para centrar la imagen
-                const centerX = (modalWidth - imageWidth) / 2;
-                const centerY = (modalHeight - imageHeight) / 2;
-
-                // Establecer la transformación inicial para centrar la imagen
-                modalImage.style.transform = `scale(${scale}) translate(${centerX}px, ${centerY}px)`;
-                translateX = centerX; // Ajustamos la posición de inicio
-                translateY = centerY;
-            };
-
-            resetZoom(); // Restablecer el zoom y la posición
-        }
-
-        function closeModal() {
-            const modal = document.getElementById('imageModal');
-            modal.style.display = "none";
-            resetZoom(); // Restablecer el estado del zoom al cerrar
-        }
-
-        function resetZoom() {
-            scale = 1;
-            translateX = 0;
-            translateY = 0;
-            const modalImage = document.getElementById('modalImage');
-            modalImage.style.transform = `scale(${scale}) translate(0, 0)`;
-        }
-
-        function zoomImage(event) {
-            event.preventDefault();
-            const modalImage = document.getElementById('modalImage');
-            const zoomStep = 0.05; // Reducción del incremento de zoom
-            const maxZoom = 3; // Límite superior
-            const minZoom = 0; // Límite inferior
-
-            if (event.deltaY < 0) {
-                scale = Math.min(maxZoom, scale + zoomStep); // Acercar
-            } else {
-                scale = Math.max(minZoom, scale - zoomStep); // Alejar
-            }
-
-            modalImage.style.transform = `scale(${scale}) translate(${translateX}px, ${translateY}px)`;
-        }
-
-        function startDrag(event) {
-            isDragging = true;
-            startX = event.clientX - translateX;
-            startY = event.clientY - translateY;
-            document.body.style.cursor = "grabbing";
-        }
-
-        function dragImage(event) {
-            if (!isDragging) return;
-            event.preventDefault();
-            
-            // Calcula la nueva posición sin desbordar fuera del modal
-            translateX = event.clientX - startX;
-            translateY = event.clientY - startY;
-
-            const modalImage = document.getElementById('modalImage');
-            modalImage.style.transform = `scale(${scale}) translate(${translateX}px, ${translateY}px)`;
-        }
-
-
-        function stopDrag() {
-            isDragging = false;
-            document.body.style.cursor = "default";
-        }
-
-        // Event listeners para el zoom y el arrastre
-        const modalImage = document.getElementById('modalImage');
-        modalImage.addEventListener('wheel', zoomImage); // Zoom con el scroll
-        modalImage.addEventListener('mousedown', startDrag); // Comenzar arrastre
-        modalImage.addEventListener('mousemove', dragImage); // Mover imagen
-        modalImage.addEventListener('mouseup', stopDrag); // Detener arrastre
-        modalImage.addEventListener('mouseleave', stopDrag); // Detener si el cursor sale
-        document.querySelector('.close').addEventListener('click', closeModal); // Botón de cierre
-        document.getElementById('imageModal').addEventListener('click', (e) => {
-            if (e.target.id === 'imageModal') closeModal(); // Cerrar modal si se hace clic fuera de la imagen
-        });
-    </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
-    <script>
-        // Obtener el modal
-        var modal = document.getElementById("documentationModal");
-
-        // Obtener el botón que abre el modal
-        var btn = document.querySelector(".nav-link[href='#']");
-
-        // Obtener el elemento <span> que cierra el modal
-        var span = document.getElementsByClassName("close")[0];
-
-        // Cuando el usuario hace clic en el botón, abre el modal
-        btn.onclick = function() {
-            modal.style.display = "block";
-        }
-
-        // Cuando el usuario hace clic en <span> (x), cierra el modal
-        span.onclick = function() {
-            modal.style.display = "none";
-        }
-
-        // Cuando el usuario hace clic en cualquier lugar fuera del modal, cierra el modal
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-
-        // Descargar la documentación
-        document.getElementById("downloadButton").onclick = function() {
-            window.location.href = 'http://127.0.0.1:5500/Informe_DSS_Tsunami.pdf'; // Cambia esta ruta al archivo de documentación
-        }
     </script>
 
 
