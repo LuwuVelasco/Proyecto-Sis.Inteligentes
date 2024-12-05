@@ -292,7 +292,7 @@
 <body>
     <nav class="navbar navbar-light fixed-top navbar-expand-lg">
         <div class="container">
-            <a class="navbar-brand" href="http://127.0.0.1:5500/index.html">ProtoCool OS</a>
+            <a class="navbar-brand" href="http://127.0.0.1:5500/principal.html">ProtoCool OS</a>
     
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarOpen">
                 <span class="navbar-toggler-icon"></span>
@@ -304,7 +304,7 @@
                         <a class="nav-link" href="http://127.0.0.1:5000/">JR48</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Documentación</a>
+                         <a class="nav-link" href="#">Documentación</a>
                     </li>
                 </ul>
             </div>
@@ -317,7 +317,7 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>Documentación</h2>
-            <iframe id="docPreview" src="http://127.0.0.1:5500/Informe_DSS_Tsunami.pdf" width="100%" height="600px"></iframe>
+            <!-- <iframe id="docPreview" src="http://127.0.0.1:5500/Informe_DSS_Tsunami.pdf" width="100%" height="600px"></iframe> -->
             <button id="downloadButton" class="btn btn-primary mt-3">Descargar Documentación</button>
         </div>
     </div>
@@ -364,62 +364,63 @@
     <!-- Leaflet.js JavaScript -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        // Inicializar el mapa con Leaflet
-        const map = L.map('map').setView([0, -90], 2); // Centrado inicial
 
-        // Capa de OpenStreetMap
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
+let map, marker;
 
-        let marker; // Variable para el marcador
+document.addEventListener('DOMContentLoaded', function () {
+    // Inicializar el mapa con coordenadas por defecto y un nivel de zoom
+    map = L.map('map').setView([0, 0], 2);
 
-        function makePrediction() {
-            const data = {
-                data: [
-                    parseInt(document.querySelector('[name="year"]').value),
-                    parseFloat(document.querySelector('[name="latitude"]').value),
-                    parseFloat(document.querySelector('[name="longitude"]').value),
-                    parseFloat(document.querySelector('[name="magnitude"]').value)
-                ]
-            };
+    // Agregar un tile layer de OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+});
 
-            fetch('/predict', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('result').innerText = `Nivel de riesgo: ${data.risk}, País: ${data.country}`;
+function makePrediction() {
+    const data = {
+        data: [
+            parseInt(document.querySelector('[name="year"]').value),
+            parseFloat(document.querySelector('[name="latitude"]').value),
+            parseFloat(document.querySelector('[name="longitude"]').value),
+            parseFloat(document.querySelector('[name="magnitude"]').value)
+        ]
+    };
 
-                    const lng = parseFloat(document.querySelector('[name="longitude"]').value);
-                    const lat = parseFloat(document.querySelector('[name="latitude"]').value);
+    fetch('/predict', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(result => {
+        const resultDiv = document.getElementById('result');
+        if (result.error) {
+            resultDiv.innerHTML = `<p>Error: ${result.error}</p>`;
+        } else {
+            resultDiv.innerHTML = `
+                <p>Riesgo Predicho: <strong>${result.risk}</strong></p>
+                <p>Ubicación: <strong>${result.country}</strong></p>
+            `;
 
-                    // Crear o mover el marcador
-                    if (marker) {
-                        marker.setLatLng([lat, lng]);
-                    } else {
-                        marker = L.marker([lat, lng], {
-                            icon: L.icon({
-                                iconUrl: data.risk === 'Alto' ? 'https://cdn-icons-png.flaticon.com/512/565/565547.png' : 'https://cdn-icons-png.flaticon.com/512/189/189665.png',
-                                iconSize: [32, 32]
-                            })
-                        }).addTo(map);
-                    }
-
-                    // Centrar el mapa en las coordenadas
-                    map.setView([lat, lng], 6);
-                });
+            // Actualizar el marcador en el mapa
+            if (!marker) {
+                marker = L.marker([data.data[1], data.data[2]]).addTo(map);
+            } else {
+                marker.setLatLng([data.data[1], data.data[2]]);
+            }
+            map.setView([data.data[1], data.data[2]], 6);
         }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        document.getElementById('result').innerHTML = `<p>Ocurrió un error: ${error}</p>`;
+    });
+}
 
-        let scale = 0.01; // Escala inicial
-        let translateX = 0; // Posición horizontal
-        let translateY = 0; // Posición vertical
-        let isDragging = false; // Rastrea si el usuario está arrastrando
-        let startX, startY; // Posición inicial del clic
 
     </script>
 
